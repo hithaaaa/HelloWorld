@@ -3,8 +3,9 @@ export const config = {
     redirectUri: 'http://localhost:3000',
     scopes: [
         'user.read',
-        
+        'mail.read',
+        'mail.readbasic',
+        'tasks.readwrite',
     ],
     authority: 'https://login.microsoftonline.com/4130bd39-7c53-419c-b1e5-8758d6d63f21'
-    
 };
