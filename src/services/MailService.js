@@ -55,15 +55,13 @@ export function getDetails(listOfMails) {
 export function getTitle(text) {
     var words = text.split(" ");
     for (var i = 0; i < words.length - 1; i++) {
-        if (words[i] + words[i + 1] === "Fall 2022" && i < words.length - 7) {
+        if (words[i] + words[i + 1] === "Fall 2022") {
             words = words.slice(i, i + 6)
-        } else if (words[i] + words[i + 1] === "Fall 2022" && i > words.length - 7) {
-            words = words.slice(i - 6, i)
         } else {
             words = words.slice(0, 6)
         }
     }
-    console.log(words.join(" "))
+    // console.log(words.join(" "))
     return words.join(" ")
 }
 
