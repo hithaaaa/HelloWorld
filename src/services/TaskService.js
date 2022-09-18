@@ -38,6 +38,17 @@ export function createTask(title) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': application/json },
+        body: {
+            title: title,
+            categories: ['Important'],
+            linkedResources: [
+               {
+                  webUrl: 'http://microsoft.com',
+                  applicationName: 'Microsoft',
+                  displayName: 'Microsoft'
+               }
+            ]
+         }
     };
     fetch('https://graph.microsoft.com/v1.0/me/todo/lists/' + listOfTaskLists[i] + '/tasks', requestOptions)
         .then(async response => {

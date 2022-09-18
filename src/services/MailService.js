@@ -32,27 +32,47 @@ export function getMailBodies(listOfMails) {
     return textBodies
 }
 
+export function getMailHeaders(listOfMails) {
+    var headers = []
+    for (var i = 0; i < listOfMails.length; i++) {
+        headers.push(listOfMails[i]["bodyPreview"])
+    }
+    return headers
+}
+
 export function getDetails(listOfMails) {
-    var textBodies = getMailBodies(listOfMails);
+    var mailHeaders = getMailHeaders(listOfMails);
     var suggestions = []
-    for (var i = 0; i < textBodies.length; i++) {
+    for (var i = 0; i < mailHeaders.length; i++) {
         var details = {}
-        details["title"] = getTitle(textBodies[i])
-        details["time"] = getTime(textBodies[i])
-        details["date"] = getDayDate(textBodies[i])
+        details["title"] = getTitle(mailHeaders[i])
+        details["time"] = getDayDateTime(mailHeaders[i])
         suggestions.push(details)
     }
     return suggestions
 }
 
 export function getTitle(text) {
-
+    var words = text.split(" ");
+    for (var i = 0; i < words.length - 1; i++) {
+        if (words[i] + words[i + 1] === "Fall 2022" && i < words.length - 7) {
+            words = words.slice(i, i + 6)
+        } else if (words[i] + words[i + 1] === "Fall 2022" && i > words.length - 7) {
+            words = words.slice(i - 6, i)
+        } else {
+            words = words.slice(0, 6)
+        }
+    }
+    console.log(words.join(" "))
+    return words.join(" ")
 }
 
-export function getTime(text) {
-
-}
-
-export function getDayDate(text) {
-
+export function getDayDateTime(text) {
+    var words = text.split(" ");
+    for (var i = 0; i < words.length - 1; i++) {
+        if ((words[i] + words[i + 1]).startsWith("Due date") && i < words.length - 9) {
+            console.log(words.slice(i + 2, i + 8).join())
+            return words.slice(i + 2, i + 8).join()
+        }
+    }
 }
